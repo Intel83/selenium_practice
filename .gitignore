@@ -211,3 +211,8 @@ __marimo__/
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/selenium_practice.iml
 /.idea/vcs.xml
+
+# selenium artifacts
+*.png
+*.html
+*.xml
