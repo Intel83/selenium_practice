@@ -1,10 +1,3 @@
-import os
-
-from dotenv import load_dotenv
-load_dotenv()
-CHRDR_PATH = os.getenv("CHROMEDRIVER_PATH")
-os.environ["PATH"] += ";" + CHRDR_PATH + ";"
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
