@@ -1,6 +1,6 @@
 *** Settings ***
 Library    RequestsLibrary
-Variables     ./Resources/json_api_variables.py
+Variables     ./../Resources/json_api_variables.py
 
 *** Test Cases ***
 Send a GET request

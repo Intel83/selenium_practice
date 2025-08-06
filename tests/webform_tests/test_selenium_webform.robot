@@ -17,6 +17,7 @@ Submit Web Form
     [Tags]              smoke positive webform selenium
     Fill Form           ${TEXT_INPUT}    ${TEXT_AREA}    ${DATE}    ${DROPDOWN_LABEL}
     Submit Form
+    Wait Until Page Contains Text    ${EXPECTED_TEXT}
     Page Should Contain  ${EXPECTED_TEXT}
 
 *** Keywords ***
@@ -28,6 +29,11 @@ Open Browser To Form Page
     Go To               ${URL}
     Wait Until Page Contains Element    xpath=//input[@id='my-text-id']    timeout=10s
     Maximize Browser Window
+
+Wait Until Page Contains Text
+    [Arguments]         ${text}
+    [Documentation]     Waits until the page contains the specified text.
+    Wait Until Page Contains    ${text}    timeout=10s
 
 Fill Form
     [Documentation]    Fills out the web form with provided values.
