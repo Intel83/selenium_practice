@@ -6,10 +6,10 @@ from conftest import driver_herokuapp
 from logging import getLogger
 logger = getLogger(__name__)
 
-test_data = [
+test_data = (
     ("tomsmith", "SuperSecretPassword!", "You logged into a secure area!"),
     ("invalid_user", "wrong_password", "Your username is invalid!")
-]
+)
 @pytest.mark.login
 @pytest.mark.parametrize("username, password, expected_message", test_data)
 def test_credentials(driver_herokuapp, username, password, expected_message):
