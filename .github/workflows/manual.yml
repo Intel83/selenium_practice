@@ -31,7 +31,7 @@ jobs:
       run: |
         for i in {1..10}; do
           echo "Checking if Selenium Grid is ready... Attempt $i"
-          if curl -s http://localhost:4444/status | grep -q '"ready":true'; then
+          if curl -s http://selenium:4444/status | grep -q '"ready":true'; then
             echo "✅ Selenium Grid is ready!"
             exit 0
           fi
