@@ -1,7 +1,7 @@
 import pytest
 from selenium.webdriver.support.select import Select
 
-from conftest import driver_selenium_webform
+from conftest import driver_grid_selenium_webform
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -14,6 +14,7 @@ test_data = [
     ("Marcin", "This is a test message.", "2025-07-31", "One", "Form submitted"),
     ("Test User", "Other message.", "2025-07-31", "Two", "Form submitted")
 ]
+@pytest.mark.login
 @pytest.mark.parametrize(["name", "message", "date", "select_option", "expected_message"], test_data)
 def test_webform_submission(driver_grid_selenium_webform, name, message, date, select_option, expected_message):
     """

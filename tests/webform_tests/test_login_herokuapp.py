@@ -2,7 +2,7 @@ import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from conftest import driver_herokuapp
+from conftest import driver_grid_herokuapp
 from logging import getLogger
 logger = getLogger(__name__)
 
