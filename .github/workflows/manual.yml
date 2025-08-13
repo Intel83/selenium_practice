@@ -1,0 +1,33 @@
+name: Run Pytest in Parallel
+
+on: [workflow_dispatch]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      selenium:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.13
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Run tests in parallel with Allure
+      run: |
+        pytest -n 5 --alluredir=reports/allure-results
+    - name: Generate Allure report
+      run: |
+        allure generate reports/allure-results -o reports/allure-report --clean
+    - name: Upload Allure report as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report
+        path: reports/allure-report
