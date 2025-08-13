@@ -6,10 +6,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      selenium:
-        image: selenium/standalone-chrome:latest
+      selenium-hub:
+        image: selenium/hub:4.21.0-20240709
         ports:
           - 4444:4444
+        chrome:
+          image: selenium/node-chrome:4.21.0-20240709
+          shm_size: '2gb'
+          env:
+            - SE_EVENT_BUS_HOST=selenium-hub
+            - SE_EVENT_BUS_PUBLISH_PORT=4442
+            - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
     steps:
     - uses: actions/checkout@v3
@@ -22,7 +29,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run tests in parallel with Allure
       run: |
-        pytest -m login -n 5 --alluredir=reports/allure-results
+        pytest -m login -n 2 --alluredir=reports/allure-results
     - name: Generate Allure report
       run: |
         allure generate reports/allure-results -o reports/allure-report --clean
