@@ -1,39 +1,41 @@
-name: Run Pytest in Parallel
+name: Run Selenium Tests
 
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - dev
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     services:
-      selenium-hub:
-        image: selenium/hub:4.21.0-20240709
+      selenium:
+        image: selenium/standalone-chrome:4.21.0-20240709
         ports:
           - 4444:4444
-        chrome:
-          image: selenium/node-chrome:4.21.0-20240709
-          shm_size: '2gb'
-          env:
-            - SE_EVENT_BUS_HOST=selenium-hub
-            - SE_EVENT_BUS_PUBLISH_PORT=4442
-            - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.13
+        python-version: '3.11'
+
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-    - name: Run tests in parallel with Allure
+
+    - name: Run pytest in parallel
       run: |
         pytest -m login -n 2 --alluredir=reports/allure-results
-    - name: Generate Allure report
+
+    - name: Generate Allure Report
       run: |
         allure generate reports/allure-results -o reports/allure-report --clean
-    - name: Upload Allure report as artifact
+
+    - name: Upload Allure Report
       uses: actions/upload-artifact@v4
       with:
         name: allure-report

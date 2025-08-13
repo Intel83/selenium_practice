@@ -19,7 +19,7 @@ def driver_grid_herokuapp():
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")  # Run in headless mode for CI/CD environments
     driver = webdriver.Remote(
-        command_executor="http://selenium-hub:4444",
+        command_executor="http://selenium:4444",
         options=options
     )
     driver.get("https://the-internet.herokuapp.com/login")
@@ -37,7 +37,7 @@ def driver_grid_selenium_webform():
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")  # Run in headless mode for CI/CD environments
     driver = webdriver.Remote(
-        command_executor="http://selenium-hub:4444",
+        command_executor="http://selenium:4444",
         options=options
     )
     driver.get("https://www.selenium.dev/selenium/web/web-form.html")
