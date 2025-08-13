@@ -8,6 +8,24 @@ from logging import config, getLogger
 config.fileConfig('./logging.conf', disable_existing_loggers=False)
 logger = getLogger(__name__)
 
+# driver for remote grid - herokuapp
+@pytest.fixture(scope="session")
+def driver_grid_herokuapp():
+    """
+    Sets up the Chrome WebDriver for remote grid testing on HerokuApp.
+    """
+    logger.info("Setting up Chrome WebDriver for remote grid HerokuApp login test.")
+    # Initialize the Chrome WebDriver for remote grid
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")  # Run in headless mode for CI/CD environments
+    driver = webdriver.Remote(
+        command_executor="http://localhost:4444/wd/hub",
+        options=options
+    )
+    driver.get("https://the-internet.herokuapp.com/login")
+    yield driver
+    driver.quit()
+
 # driver-related fixtures
 @pytest.fixture(scope="function")
 def driver_herokuapp():
